@@ -1,51 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {changeCount} from './redux/action';
-import BluetoothModule from './screens/BluetoothModule';
-import SignInScreen from './screens/SignInScreen';
+import React from 'react';
+import {StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import AuthScreen from './screens/AuthScreen';
+import colors from './colors';
+
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [wasPressedBtn, setBtnPressed] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(changeCount(34));
-  }, []);
-
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={'dark-content'} />
-      <ScrollView style={styles.containerContent}>
-        {/* <View style={styles.containerHeader}>
-          <Text>Wearable</Text>
-        </View> */}
-        <View style={styles.content}>
-          {wasPressedBtn && <BluetoothModule />}
-          {!wasPressedBtn && <SignInScreen onPressButton={setBtnPressed} />}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            alignSelf: 'center',
+          },
+        }}>
+        <Stack.Screen
+          name="Auth"
+          component={AuthScreen}
+          options={{title: 'NemoBit'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  containerContent: {
-    flexGrow: 1,
-    backgroundColor: 'gray',
-  },
-  containerHeader: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;

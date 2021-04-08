@@ -5,8 +5,6 @@ import Button from '../components/Button';
 
 const SignInScreen = ({onPressButton}) => {
   const [email, setEmail] = useState(null);
-  const [name, setName] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
   const [password, setPassword] = useState(null);
 
   const onPressBtn = () => {
@@ -27,29 +25,10 @@ const SignInScreen = ({onPressButton}) => {
           returnKeyType={'next'}
         />
         <TextInput
-          text={name}
-          onChangeText={setName}
-          placeholder={'Nume si prenume'}
-          returnKeyType={'next'}
-        />
-        <TextInput
-          text={phoneNumber}
-          onChangeText={setPhoneNumber}
-          placeholder={'Numar telefon'}
-          keyboardType={'numeric'}
-          returnKeyType={'next'}
-        />
-        <TextInput
           text={password}
           onChangeText={setPassword}
           placeholder={'Parola'}
           returnKeyType={'next'}
-        />
-        <TextInput
-          text={password}
-          onChangeText={setPassword}
-          placeholder={'Reintroduceti parola'}
-          returnKeyType={'send'}
         />
       </View>
       <View style={styles.buttonContainer}>
