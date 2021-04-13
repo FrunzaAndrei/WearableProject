@@ -1,6 +1,13 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import AuthenticationScreen from '../screens/Auth/AuthenticationScreen';
 import LandingScreen from '../screens/Auth/LandingScreen';
+
+const AuthNavigation = createStackNavigator({
+  AuthenticationScreen: {
+    screen: AuthenticationScreen,
+  },
+});
 
 const FirstScreen = createStackNavigator({
   LandingScreen: {
@@ -15,6 +22,7 @@ const RootStack = createStackNavigator(
   {
     /* your routes here */
     LandingScreen: FirstScreen,
+    AuthNavigation: AuthNavigation,
   },
   {
     initialRouteName: 'LandingScreen',

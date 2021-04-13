@@ -1,7 +1,7 @@
 export default {
   logo: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
   },
 };

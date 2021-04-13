@@ -1,13 +1,21 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {Image, StyleSheet, Text, View, Animated} from 'react-native';
 import colors from '../../colors';
 import commonStyle from '../utils/commonStyle';
 
 const logo = require('../../assets/icons/logo.png');
 const heart = require('../../assets/icons/blackHeart.png');
+const heartFilled = require('../../assets/icons/filledBlackHeart.png');
 
 const LandingScreen = ({navigation}) => {
   const animation = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    startAnimation();
+    setTimeout(() => navigation.navigate('AuthenticationScreen'), 5000);
+    return () => animation.stopAnimation();
+  }, []);
+
   const startAnimation = () => {
     Animated.loop(
       Animated.timing(animation, {
@@ -20,7 +28,7 @@ const LandingScreen = ({navigation}) => {
 
   const interpolation = animation.interpolate({
     inputRange: [1, 2],
-    outputRange: [1, 1.25],
+    outputRange: [0.8, 1.25],
   });
 
   const animatedStyle = {
@@ -32,17 +40,22 @@ const LandingScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      {startAnimation()}
-      <View style={styles.containerImages}>
-        <Image source={logo} style={commonStyle.logo} />
+    <>
+      <View style={styles.container}>
+        {startAnimation()}
+        <View style={styles.containerImages}>
+          <Image source={logo} style={commonStyle.logo} />
+        </View>
+        <View>
+          <Animated.Image
+            source={heartFilled}
+            style={[styles.heartFilledIcon, animatedStyle]}
+          />
+          <Image source={heart} style={styles.heartIcon} />
+        </View>
+        <Text style={styles.textBold}>by Smart Solution</Text>
       </View>
-      <Animated.Image
-        source={heart}
-        style={[styles.heartIcon, animatedStyle]}
-      />
-      <Text style={styles.textBold}>by Smart Solution</Text>
-    </View>
+    </>
   );
 };
 
@@ -66,6 +79,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   heartIcon: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    position: 'absolute',
+    top: -10,
+    left: -10,
+  },
+  heartFilledIcon: {
     width: 60,
     height: 60,
     resizeMode: 'contain',
