@@ -1,13 +1,28 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import AuthScreen from '../screens/AuthScreen';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import LandingScreen from '../screens/Auth/LandingScreen';
 
-export default createStackNavigator(
-  {
-    AuthenticationScreen: {
-      screen: AuthScreen,
+const FirstScreen = createStackNavigator({
+  LandingScreen: {
+    screen: LandingScreen,
+    navigationOptions: {
+      headerShown: false,
     },
   },
+});
+
+const RootStack = createStackNavigator(
   {
-    headerMode: 'float',
+    /* your routes here */
+    LandingScreen: FirstScreen,
+  },
+  {
+    initialRouteName: 'LandingScreen',
+    headerMode: 'none',
+    mode: 'modal',
   },
 );
+const AppContainer = createAppContainer(RootStack);
+
+// Now AppContainer is the main component for React to render
+export default AppContainer;
