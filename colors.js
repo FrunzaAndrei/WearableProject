@@ -2,5 +2,6 @@ export default {
   blue: '#0c6091',
   black: 'black',
   white: 'white',
-  background: '#d8ecf3',
+  background: '#f0f1f6',
+  backgroundButton: '#6f85bd',
 };

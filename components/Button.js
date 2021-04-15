@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import colors from '../colors';
 
 const Button = ({title, onPress, styleBody, styleText}) => {
   return (
@@ -22,13 +23,16 @@ export default Button;
 
 const styles = StyleSheet.create({
   containerText: {
-    backgroundColor: '#133337',
+    backgroundColor: colors.backgroundButton,
     paddingHorizontal: 25,
     paddingVertical: 10,
+    borderRadius: 4,
+    marginVertical: 10,
   },
   text: {
-    color: 'white',
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 16,
+    textAlign: 'center',
   },
 });

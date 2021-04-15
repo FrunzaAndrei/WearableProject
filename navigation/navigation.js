@@ -6,6 +6,9 @@ import LandingScreen from '../screens/Auth/LandingScreen';
 const AuthNavigation = createStackNavigator({
   AuthenticationScreen: {
     screen: AuthenticationScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 

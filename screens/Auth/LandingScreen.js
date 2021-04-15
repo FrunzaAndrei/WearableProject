@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from 'react';
-import {Image, StyleSheet, Text, View, Animated} from 'react-native';
+import {Image, StyleSheet, Text, View, Animated, StatusBar} from 'react-native';
+import {withNavigationFocus} from 'react-navigation';
 import colors from '../../colors';
 import commonStyle from '../utils/commonStyle';
 
@@ -7,14 +8,14 @@ const logo = require('../../assets/icons/logo.png');
 const heart = require('../../assets/icons/blackHeart.png');
 const heartFilled = require('../../assets/icons/filledBlackHeart.png');
 
-const LandingScreen = ({navigation}) => {
+const LandingScreen = ({navigation, isFocused}) => {
   const animation = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    startAnimation();
+    isFocused && startAnimation();
     setTimeout(() => navigation.navigate('AuthenticationScreen'), 5000);
-    return () => animation.stopAnimation();
-  }, []);
+    !isFocused && animation.stopAnimation();
+  }, [isFocused]);
 
   const startAnimation = () => {
     Animated.loop(
@@ -41,6 +42,10 @@ const LandingScreen = ({navigation}) => {
 
   return (
     <>
+      <StatusBar
+        backgroundColor={colors.background}
+        barStyle={'dark-content'}
+      />
       <View style={styles.container}>
         {startAnimation()}
         <View style={styles.containerImages}>
@@ -59,7 +64,7 @@ const LandingScreen = ({navigation}) => {
   );
 };
 
-export default LandingScreen;
+export default withNavigationFocus(LandingScreen);
 
 const styles = StyleSheet.create({
   container: {
