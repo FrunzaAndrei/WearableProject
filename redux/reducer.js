@@ -1,15 +1,16 @@
-import {TEST_REDUX} from './constants';
+import {LOGIN_USER} from './constants';
 import {createReducer} from './helpers';
 
 const initialState = {
-  test: 0,
+  userLogin: {},
 };
 
-export const countReducer = createReducer(initialState, {
-  [TEST_REDUX](state, action) {
+export const state = createReducer(initialState, {
+  [LOGIN_USER](state, action) {
+    console.log(action.payload);
     return {
       ...state,
-      test: action.payload,
+      userLogin: action.payload,
     };
   },
 });

@@ -6,19 +6,34 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import colors from '../../colors';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import {loginUser} from '../../redux/action';
 import commonStyle from '../utils/commonStyle';
 
 const logo = require('../../assets/icons/logo.png');
 
-const AuthenticationScreen = () => {
+const AuthenticationScreen = ({navigation}) => {
+  const {cnpState, parolaState} = useSelector(state => ({
+    cnpState: state.userLogin?.cnp,
+    parolaState: state.userLogin?.parola,
+  }));
+  const dispatch = useDispatch();
   const [cnp, setCnp] = useState('');
   const [parola, setParola] = useState('');
+  const [isHidePassword, setIsHidePassword] = useState(true);
   const parolRef = useRef();
-  console.log(parolRef);
-  console.log(parolRef.current);
+
+  const handleLogin = () => {
+    dispatch(loginUser(cnp, parola));
+  };
+
+  const handleInregistreaza = () => {
+    navigation.navigate('InregistrareScreen');
+  };
+
   return (
     <KeyboardAvoidingView style={{flexGrow: 1}}>
       <ScrollView
@@ -38,21 +53,23 @@ const AuthenticationScreen = () => {
               }}
             />
             <Input
+              withIconForPassword={true}
               value={parola}
               inputRef={parolRef}
               onChangeText={val => setParola(val)}
               placeholder={'Parola'}
               returnKeyType={'send'}
+              isPasswordHide={isHidePassword}
+              setIsHidePassword={setIsHidePassword}
+              onSubmitEditing={handleLogin}
             />
           </View>
           <View style={styles.containerButtons}>
-            <Button title="Logare" onPress={() => console.log('Logare')} />
-            <Button
-              title="Inregistreaza-te"
-              onPress={() => console.log('Inregistreaza-te')}
-            />
+            <Button title="Logare" onPress={handleLogin} />
+            <Button title="Inregistreaza-te" onPress={handleInregistreaza} />
           </View>
         </View>
+        <View style={styles.footer} />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -73,5 +90,8 @@ const styles = StyleSheet.create({
   },
   containerInputs: {
     marginVertical: 30,
+  },
+  footer: {
+    height: 40,
   },
 });
