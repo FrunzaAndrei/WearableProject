@@ -1,1 +1,2 @@
 export const LOGIN_USER = 'LOGIN_USER';
+export const INREGISTRARE_USER = 'INREGISTRARE_USER';

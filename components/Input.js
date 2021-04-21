@@ -26,10 +26,12 @@ const Input = ({
   isPasswordHide,
   withIconForPassword,
   setIsHidePassword,
+  autoFocus,
 }) => {
   return (
     <View style={styles.container}>
       <TextInput
+        autoFocus={autoFocus}
         value={text}
         secureTextEntry={isPasswordHide}
         ref={inputRef}
@@ -63,6 +65,7 @@ Input.defaultProps = {
   blurOnSubmit: false,
   isPasswordHide: false,
   withIconForPassword: false,
+  autoFocus: false,
 };
 
 const styles = StyleSheet.create({
