@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import colors from '../../colors';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import {loginUser} from '../../redux/action';
+import {loginUser, showErrorMessage} from '../../redux/action';
 import commonStyle from '../utils/commonStyle';
 
 const logo = require('../../assets/icons/logo.png');
@@ -27,7 +27,12 @@ const AuthenticationScreen = ({navigation}) => {
   const parolRef = useRef();
 
   const handleLogin = () => {
-    dispatch(loginUser(cnp, parola));
+    if (cnp && parola) {
+      dispatch(loginUser(cnp, parola));
+    } else {
+      dispatch(showErrorMessage('NU AI ADAUGAT TOATE DATELE DE LOGARE'));
+      navigation.navigate('AlertScreen');
+    }
   };
 
   const handleInregistreaza = () => {

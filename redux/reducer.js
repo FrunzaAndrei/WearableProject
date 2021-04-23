@@ -1,9 +1,15 @@
-import {INREGISTRARE_USER, LOGIN_USER} from './constants';
+import {
+  INREGISTRARE_USER,
+  LOGIN_USER,
+  RESET_ERROR,
+  SHOW_ERROR,
+} from './constants';
 import {createReducer} from './helpers';
 
 const initialState = {
   userLogin: {},
   dateInregistrare: {},
+  errorMessage: null,
 };
 
 const logAction = (action, state, payload) => {
@@ -25,6 +31,19 @@ export const state = createReducer(initialState, {
     return {
       ...state,
       dateInregistrare: action.payload,
+    };
+  },
+  [SHOW_ERROR](state, action) {
+    logAction(SHOW_ERROR, state, action.payload);
+    return {
+      ...state,
+      errorMessage: action.payload,
+    };
+  },
+  [RESET_ERROR](state) {
+    return {
+      ...state,
+      errorMessage: null,
     };
   },
 });

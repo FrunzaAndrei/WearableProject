@@ -41,6 +41,19 @@ const InregistreazateScreen = () => {
   const confirmareParolaRef = useRef();
 
   const handleInregistreaza = () => {
+    if (
+      nume &&
+      prenume &&
+      dataNasterii &&
+      localitatea &&
+      numarTelefon &&
+      email &&
+      cnp &&
+      parola &&
+      confirmareParola
+    ) {
+      return;
+    }
     dispatch(
       inregistrareUser({
         nume,
