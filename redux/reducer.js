@@ -10,6 +10,7 @@ const initialState = {
   userLogin: {},
   dateInregistrare: {},
   errorMessage: null,
+  doneInreg: false,
 };
 
 const logAction = (action, state, payload) => {
@@ -18,11 +19,12 @@ const logAction = (action, state, payload) => {
   console.log('payload: ', payload);
 };
 
-export const state = createReducer(initialState, {
+export const data = createReducer(initialState, {
   [LOGIN_USER](state, action) {
     logAction(LOGIN_USER, state, action.payload);
     return {
       ...state,
+      doneInreg: false,
       userLogin: action.payload,
     };
   },
@@ -30,6 +32,7 @@ export const state = createReducer(initialState, {
     logAction(INREGISTRARE_USER, state, action.payload);
     return {
       ...state,
+      doneInreg: true,
       dateInregistrare: action.payload,
     };
   },

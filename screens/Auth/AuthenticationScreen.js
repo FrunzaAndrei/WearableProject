@@ -1,8 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
@@ -17,8 +18,8 @@ const logo = require('../../assets/icons/logo.png');
 
 const AuthenticationScreen = ({navigation}) => {
   const {cnpState, parolaState} = useSelector(state => ({
-    cnpState: state.userLogin?.cnp,
-    parolaState: state.userLogin?.parola,
+    cnpState: state.data.userLogin?.cnp,
+    parolaState: state.data.userLogin?.password,
   }));
   const dispatch = useDispatch();
   const [cnp, setCnp] = useState('');
@@ -26,11 +27,21 @@ const AuthenticationScreen = ({navigation}) => {
   const [isHidePassword, setIsHidePassword] = useState(true);
   const parolRef = useRef();
 
+  useEffect(() => {
+    console.log('cnpState:', cnpState);
+    console.log('parolaState,', parolaState);
+  }, [cnpState, parolaState]);
+
   const handleLogin = () => {
     if (cnp && parola) {
       dispatch(loginUser(cnp, parola));
     } else {
-      dispatch(showErrorMessage('NU AI ADAUGAT TOATE DATELE DE LOGARE'));
+      dispatch(
+        showErrorMessage(
+          'Eroare Logare',
+          'Te rugam sa adaugi toate datele de logare',
+        ),
+      );
       navigation.navigate('AlertScreen');
     }
   };
@@ -40,43 +51,51 @@ const AuthenticationScreen = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingView style={{flexGrow: 1}}>
-      <ScrollView
-        style={styles.containerScroll}
-        contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.container}>
-          <Image source={logo} style={[commonStyle.logo, styles.imageLogo]} />
-          <View style={styles.containerInputs}>
-            <Input
-              value={cnp}
-              keyboardType={'numeric'}
-              onChangeText={val => setCnp(val)}
-              placeholder={'CNP'}
-              returnKeyType={'next'}
-              onSubmitEditing={() => {
-                parolRef.current.focus();
-              }}
-            />
-            <Input
-              withIconForPassword={true}
-              value={parola}
-              inputRef={parolRef}
-              onChangeText={val => setParola(val)}
-              placeholder={'Parola'}
-              returnKeyType={'send'}
-              isPasswordHide={isHidePassword}
-              setIsHidePassword={setIsHidePassword}
-              onSubmitEditing={handleLogin}
-            />
+    <>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={colors.background}
+        translucent={false}
+        showHideTransition={'slide'}
+      />
+      <KeyboardAvoidingView style={{flexGrow: 1}}>
+        <ScrollView
+          style={styles.containerScroll}
+          contentContainerStyle={{flexGrow: 1}}>
+          <View style={styles.container}>
+            <Image source={logo} style={[commonStyle.logo, styles.imageLogo]} />
+            <View style={styles.containerInputs}>
+              <Input
+                value={cnp}
+                keyboardType={'numeric'}
+                onChangeText={val => setCnp(val)}
+                placeholder={'CNP'}
+                returnKeyType={'next'}
+                onSubmitEditing={() => {
+                  parolRef.current.focus();
+                }}
+              />
+              <Input
+                withIconForPassword={true}
+                value={parola}
+                inputRef={parolRef}
+                onChangeText={val => setParola(val)}
+                placeholder={'Parola'}
+                returnKeyType={'send'}
+                isPasswordHide={isHidePassword}
+                setIsHidePassword={setIsHidePassword}
+                onSubmitEditing={handleLogin}
+              />
+            </View>
+            <View style={styles.containerButtons}>
+              <Button title="Logare" onPress={handleLogin} />
+              <Button title="Inregistreaza-te" onPress={handleInregistreaza} />
+            </View>
           </View>
-          <View style={styles.containerButtons}>
-            <Button title="Logare" onPress={handleLogin} />
-            <Button title="Inregistreaza-te" onPress={handleInregistreaza} />
-          </View>
-        </View>
-        <View style={styles.footer} />
-      </ScrollView>
-    </KeyboardAvoidingView>
+          <View style={styles.footer} />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 

@@ -22,11 +22,11 @@ export function inregistrareUser(dateInregistrare) {
   };
 }
 
-export function showErrorMessage(message) {
+export function showErrorMessage(title = '', message) {
   return dispatch => {
     dispatch({
       type: SHOW_ERROR,
-      payload: message,
+      payload: {title, message},
     });
   };
 }
