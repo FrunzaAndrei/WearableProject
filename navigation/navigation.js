@@ -37,7 +37,7 @@ const AlertScreenNavigation = createStackNavigator({
     screen: AlertScreen,
     navigationOptions: {
       headerTitle: null,
-      headerStyle: commonStyle.headerStyle,
+      headerStyle: [commonStyle.headerStyle, {backgroundColor: '#ff9494'}],
     },
   },
 });
@@ -45,7 +45,7 @@ const AlertScreenNavigation = createStackNavigator({
 const RootStack = createStackNavigator(
   {
     /* your routes here */
-    LandingScreen: FirstScreen,
+    // LandingScreen: FirstScreen,
     AuthNavigation: AuthNavigation,
     AlertScreenNavigation: AlertScreenNavigation,
   },
