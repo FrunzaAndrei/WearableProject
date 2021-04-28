@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import {loginUser, showErrorMessage} from '../../redux/action';
 import commonStyle from '../utils/commonStyle';
+import Loading from '../utils/Loading';
 
 const logo = require('../../assets/icons/logo.png');
 
@@ -24,17 +25,22 @@ const AuthenticationScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [cnp, setCnp] = useState('');
   const [parola, setParola] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isHidePassword, setIsHidePassword] = useState(true);
   const parolRef = useRef();
 
   useEffect(() => {
-    console.log('cnpState:', cnpState);
-    console.log('parolaState,', parolaState);
+    if (cnpState && parolaState) {
+      navigation.navigate('Home');
+    }
+    setLoading(false);
   }, [cnpState, parolaState]);
 
   const handleLogin = () => {
+    setLoading(true);
     if (cnp && parola) {
       dispatch(loginUser(cnp, parola));
+      setLoading(false);
     } else {
       dispatch(
         showErrorMessage(
@@ -42,13 +48,19 @@ const AuthenticationScreen = ({navigation}) => {
           'Te rugam sa adaugi toate datele de logare',
         ),
       );
+      setLoading(false);
       navigation.navigate('AlertScreen');
     }
   };
 
   const handleInregistreaza = () => {
     navigation.navigate('InregistrareScreen');
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

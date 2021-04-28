@@ -5,7 +5,9 @@ import AlertScreen from '../screens/AlertScreen/AlertScreen';
 import AuthenticationScreen from '../screens/Auth/AuthenticationScreen';
 import InregistreazateScreen from '../screens/Auth/InregistreazateScreen';
 import LandingScreen from '../screens/Auth/LandingScreen';
+import HomeScreen from '../screens/Main/HomeScreen';
 import commonStyle from '../screens/utils/commonStyle';
+import TabBarNavigator from './tabBarNavigation';
 
 const AuthNavigation = createStackNavigator({
   AuthenticationScreen: {
@@ -48,6 +50,7 @@ const RootStack = createStackNavigator(
     // LandingScreen: FirstScreen,
     AuthNavigation: AuthNavigation,
     AlertScreenNavigation: AlertScreenNavigation,
+    TabBarNavigator: TabBarNavigator,
   },
   {
     // initialRouteName: 'LandingScreen',
