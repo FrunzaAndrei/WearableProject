@@ -2,12 +2,15 @@ import React from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import colors from '../../colors';
 
-const Loading = () => {
-  return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color={colors.black} />
-    </View>
-  );
+const Loading = ({isLoading}) => {
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={colors.black} />
+      </View>
+    );
+  }
+  return <></>;
 };
 
 export default Loading;
