@@ -5,6 +5,7 @@ import colors from '../colors';
 const ParameterContainer = ({
   iconParametru,
   styleIconParametru,
+  styleImageParametru,
   parametru1,
   parametru2,
   valueParametru1,
@@ -15,6 +16,7 @@ const ParameterContainer = ({
     <View style={styles.container}>
       {iconParametru && (
         <Image
+          resizeMode="contain"
           source={iconParametru}
           style={[styles.iconParametru, styleIconParametru]}
         />
@@ -35,7 +37,14 @@ const ParameterContainer = ({
           )}
         </View>
       )}
-      {iconECG && <Image source={iconECG} style={[styles.iconECG]} />}
+      {iconECG && (
+        <Image
+          resizeMode="cover"
+          resizeMethod="scale"
+          source={iconECG}
+          style={[styles.iconECG, styleImageParametru]}
+        />
+      )}
     </View>
   );
 };
@@ -47,22 +56,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.backgroundTabBar,
-    marginHorizontal: 40,
     marginVertical: 10,
-    paddingHorizontal: 30,
-    paddingVertical: 5,
+    paddingRight: 30,
     borderRadius: 10,
     elevation: 6,
   },
   iconParametru: {
-    width: 30,
-    height: 50,
-    marginVertical: 6,
+    width: 35,
+    height: 40,
+    marginVertical: 14,
+    marginLeft: 30,
   },
   iconECG: {
     width: 30,
     height: 50,
     marginVertical: 6,
+  },
+  textDenumiri: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

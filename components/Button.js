@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 4,
     marginVertical: 10,
+    elevation: 5,
   },
   text: {
     color: colors.white,
