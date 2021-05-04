@@ -11,7 +11,6 @@ import colors from '../../colors';
 import SportsContainer from '../../components/SportsContainer';
 import Button from '../../components/Button';
 import ParameterContainer from '../../components/ParameterContainer';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 const moment = require('moment');
 const conometruIcon = require('../../assets/icons/stopwatch.png');
