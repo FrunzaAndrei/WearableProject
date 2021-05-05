@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  Dimensions,
   KeyboardAvoidingView,
   ScrollView,
   StatusBar,
@@ -10,22 +9,29 @@ import {
 } from 'react-native';
 import colors from '../../colors';
 import MyCalendar from '../../components/Calendar';
+import SportsContainer from '../../components/SportsContainer';
 
-const deviceHeight = Dimensions.get('window').height;
-const isSmallScreen = () => {
-  return deviceHeight <= 700;
-};
+const moment = require('moment');
+const conometruIcon = require('../../assets/icons/stopwatch.png');
+const walkIcon = require('../../assets/icons/walk.png');
+const runIcon = require('../../assets/icons/run.png');
+const bicycleIcon = require('../../assets/icons/bicycle.png');
+const heartIcon = require('../../assets/icons/heart.png');
+const indicatorsIcon = require('../../assets/icons/indicators.png');
+const ecgIcon = require('../../assets/icons/puls.png');
+const ecgImage = require('../../assets/icons/ekg.png');
 
 const CalendarScreen = () => {
+  const [date, chooseDate] = useState(null);
   const handleOnSelectDay = date => {
-    console.log('Data aleasa:', date);
+    chooseDate(date);
   };
 
   return (
     <>
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={colors.background}
+        barStyle="light-content"
+        backgroundColor={colors.backgroundTabBar}
         translucent={false}
         showHideTransition={'slide'}
       />
@@ -40,6 +46,40 @@ const CalendarScreen = () => {
               <MyCalendar onSelectDay={handleOnSelectDay} />
             </View>
           </View>
+          {date && (
+            <View style={styles.containerContent}>
+              <Text style={styles.title}>{`Activitati ${moment(date).format(
+                'L',
+              )}`}</Text>
+              <View style={styles.sportContainer}>
+                <SportsContainer
+                  title="Plimbare"
+                  timeRunning={30}
+                  time={30}
+                  iconRun={conometruIcon}
+                  iconSport={walkIcon}
+                  onPress={() => {}}
+                />
+                <SportsContainer
+                  title="Alergare"
+                  timeRunning={30}
+                  time={30}
+                  iconRun={conometruIcon}
+                  iconSport={runIcon}
+                  onPress={() => {}}
+                />
+                <SportsContainer
+                  title="Ciclism"
+                  timeRunning={30}
+                  time={30}
+                  styleIconSport={styles.iconBicycle}
+                  iconRun={conometruIcon}
+                  iconSport={bicycleIcon}
+                  onPress={() => {}}
+                />
+              </View>
+            </View>
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </>
@@ -51,13 +91,22 @@ export default CalendarScreen;
 const styles = StyleSheet.create({
   containerScroll: {
     flex: 1,
-    paddingVertical: 30,
+    paddingBottom: 30,
     backgroundColor: colors.background,
   },
   container: {
     flex: 1,
   },
   containerCalendars: {
-    marginHorizontal: isSmallScreen() ? 8 : 24,
+    marginBottom: 5,
+  },
+  containerContent: {
+    flex: 1,
+    marginVertical: 10,
+  },
+  title: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

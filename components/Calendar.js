@@ -67,16 +67,16 @@ const MyCalendar = ({onSelectDay}) => {
   return (
     <Calendar
       current={today}
-      maxDate={today}
+      // maxDate={today}
       monthFormat={'MMMM'}
       markingType={'custom'}
       markedDates={markedDate}
       onDayPress={handleSelectDate}
       onMonthChange={setMonthDisplayed}
-      minDate={`${thisYear - 1}-12-01`}
+      // minDate={`${thisYear - 1}-12-01`}
       disableArrowLeft={disableLeftArrow}
       disableArrowRight={disableRightArrow}
-      style={{height: 500}}
+      style={{height: 425}}
       theme={{
         'stylesheet.calendar.header': {
           week: styles.calendarHeaderWeek,
@@ -87,19 +87,19 @@ const MyCalendar = ({onSelectDay}) => {
           base: styles.calendarDayBasicBase,
           alignedText: styles.calendarDayBasicAlignText,
         },
-        backgroundColor: colors.white,
-        calendarBackground: colors.white,
+        backgroundColor: colors.backgroundTabBar,
+        calendarBackground: colors.backgroundTabBar,
         textSectionTitleColor: colors.grey1,
         textSectionTitleDisabledColor: colors.grey2,
-        selectedDayBackgroundColor: colors.backgroundTabBar,
-        selectedDayTextColor: colors.white,
-        todayTextColor: colors.black,
-        dayTextColor: colors.black,
+        selectedDayBackgroundColor: colors.background,
+        selectedDayTextColor: colors.backgroundTabBar,
+        todayTextColor: colors.white,
+        dayTextColor: colors.white,
         textDisabledColor: colors.grey2,
         selectedDotColor: colors.white,
-        arrowColor: colors.black,
+        arrowColor: colors.white,
         disabledArrowColor: colors.grey2,
-        monthTextColor: colors.black,
+        monthTextColor: colors.white,
         indicatorColor: colors.backgroundTabBar,
         textDayFontFamily: 'Montserrat-Bold',
         textDayHeaderFontFamily: 'Montserrat-SemiBold',
@@ -131,11 +131,13 @@ const styles = StyleSheet.create({
   calendarHeaderDays: {
     textTransform: 'uppercase',
     fontFamily: 'Montserrat-SemiBold',
-    color: colors.grey1,
+    fontWeight: 'bold',
+    color: colors.white,
     fontSize: 12,
     lineHeight: 18,
   },
   calendarHeaderMonthText: {
+    color: colors.white,
     textTransform: 'capitalize',
     fontFamily: 'Montserrat-Bold',
     fontWeight: 'bold',
@@ -147,6 +149,7 @@ const styles = StyleSheet.create({
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
+    fontWeight: 'bold',
   },
   calendarDayBasicAlignText: {
     marginTop: 4,
