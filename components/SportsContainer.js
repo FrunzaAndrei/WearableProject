@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../colors';
 import Loading from '../screens/utils/Loading';
 
@@ -11,9 +11,13 @@ const SportsContainer = ({
   title,
   isLoading = false,
   styleIconSport,
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onPress}
+      style={styles.container}>
       {iconSport && (
         <Image source={iconSport} style={[styles.iconSport, styleIconSport]} />
       )}
@@ -27,7 +31,7 @@ const SportsContainer = ({
           <Image source={iconRun} style={styles.iconRun} />
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -51,6 +55,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 50,
     marginVertical: 6,
+    resizeMode: 'contain',
   },
   iconRun: {
     width: 24,

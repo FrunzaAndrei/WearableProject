@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../colors';
 
 const ParameterContainer = ({
@@ -11,9 +11,13 @@ const ParameterContainer = ({
   valueParametru1,
   valueParametru2,
   iconECG,
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onPress}
+      style={styles.container}>
       {iconParametru && (
         <Image
           resizeMode="contain"
@@ -45,7 +49,7 @@ const ParameterContainer = ({
           style={[styles.iconECG, styleImageParametru]}
         />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

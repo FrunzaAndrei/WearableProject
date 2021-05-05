@@ -60,6 +60,7 @@ const HomeScreen = () => {
                 time={30}
                 iconRun={conometruIcon}
                 iconSport={walkIcon}
+                onPress={() => {}}
               />
               <SportsContainer
                 title="Alergare"
@@ -67,6 +68,7 @@ const HomeScreen = () => {
                 time={30}
                 iconRun={conometruIcon}
                 iconSport={runIcon}
+                onPress={() => {}}
               />
               <SportsContainer
                 title="Ciclism"
@@ -75,6 +77,7 @@ const HomeScreen = () => {
                 styleIconSport={styles.iconBicycle}
                 iconRun={conometruIcon}
                 iconSport={bicycleIcon}
+                onPress={() => {}}
               />
               <View style={styles.containerParametri}>
                 <Text style={styles.titleParametri}>Parametri biologici</Text>
@@ -86,6 +89,7 @@ const HomeScreen = () => {
                       parametru2="Saturatie Oxigen"
                       valueParametru1="70BPM"
                       valueParametru2="90 %"
+                      onPress={() => {}}
                     />
                     <ParameterContainer
                       iconParametru={indicatorsIcon}
@@ -94,6 +98,7 @@ const HomeScreen = () => {
                       parametru2="Umiditate"
                       valueParametru1="36 C"
                       valueParametru2="30 %"
+                      onPress={() => {}}
                     />
                     <ParameterContainer
                       iconParametru={ecgIcon}
@@ -101,6 +106,7 @@ const HomeScreen = () => {
                       parametru1="ECG"
                       iconECG={ecgImage}
                       styleImageParametru={styles.ecgImage}
+                      onPress={() => {}}
                     />
                   </View>
                 )}
