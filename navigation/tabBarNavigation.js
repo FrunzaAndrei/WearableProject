@@ -81,8 +81,8 @@ const TabBarNavigator = createBottomTabNavigator(
         fontSize: 15,
         paddingTop: 12,
       },
-      activeTintColor: colors.black,
-      inactiveTintColor: colors.black,
+      activeTintColor: colors.background,
+      inactiveTintColor: colors.backgroundButton,
     },
   },
 );
