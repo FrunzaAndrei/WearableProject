@@ -46,6 +46,8 @@ const HomeScreen = () => {
         style={{flexGrow: 1}}
         contentContainerStyle={{flex: 1}}>
         <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           style={styles.containerScroll}
           contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.container}>
@@ -112,7 +114,7 @@ const HomeScreen = () => {
                 )}
                 <Button
                   title={
-                    displayParametri ? 'Opreste NemoBitul' : 'Activeaza NemoBit'
+                    displayParametri ? 'Opreste NemoBit' : 'Activeaza NemoBit'
                   }
                   onPress={() => setDisplayParametri(!displayParametri)}
                 />

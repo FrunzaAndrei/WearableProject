@@ -97,6 +97,8 @@ const InregistreazateScreen = ({navigation}) => {
       />
       <KeyboardAvoidingView style={{flexGrow: 1}}>
         <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           style={styles.containerScroll}
           contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.container}>
@@ -204,7 +206,10 @@ const InregistreazateScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.containerButtons}>
-            <Button title="Inregistreaza-te" onPress={handleInregistreaza} />
+            <Button
+              title="Finalizare inregistrare"
+              onPress={handleInregistreaza}
+            />
           </View>
           <View style={styles.footer} />
         </ScrollView>

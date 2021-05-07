@@ -72,6 +72,8 @@ const AuthenticationScreen = ({navigation}) => {
       />
       <KeyboardAvoidingView style={{flexGrow: 1}}>
         <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           style={styles.containerScroll}
           contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.container}>
@@ -101,7 +103,7 @@ const AuthenticationScreen = ({navigation}) => {
             </View>
             <View style={styles.containerButtons}>
               <Button title="Logare" onPress={handleLogin} />
-              <Button title="Inregistreaza-te" onPress={handleInregistreaza} />
+              <Button title="Inregistrare" onPress={handleInregistreaza} />
             </View>
           </View>
           <View style={styles.footer} />

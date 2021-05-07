@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {withNavigationFocus} from 'react-navigation';
 import colors from '../../colors';
 import MyCalendar from '../../components/Calendar';
 import SportsContainer from '../../components/SportsContainer';
@@ -16,12 +17,8 @@ const conometruIcon = require('../../assets/icons/stopwatch.png');
 const walkIcon = require('../../assets/icons/walk.png');
 const runIcon = require('../../assets/icons/run.png');
 const bicycleIcon = require('../../assets/icons/bicycle.png');
-const heartIcon = require('../../assets/icons/heart.png');
-const indicatorsIcon = require('../../assets/icons/indicators.png');
-const ecgIcon = require('../../assets/icons/puls.png');
-const ecgImage = require('../../assets/icons/ekg.png');
 
-const CalendarScreen = () => {
+const CalendarScreen = ({isFocused}) => {
   const [date, chooseDate] = useState(null);
   const handleOnSelectDay = date => {
     chooseDate(date);
@@ -39,6 +36,8 @@ const CalendarScreen = () => {
         style={{flexGrow: 1}}
         contentContainerStyle={{flex: 1}}>
         <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           style={styles.containerScroll}
           contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.container}>
@@ -86,8 +85,6 @@ const CalendarScreen = () => {
   );
 };
 
-export default CalendarScreen;
-
 const styles = StyleSheet.create({
   containerScroll: {
     flex: 1,
@@ -110,3 +107,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default withNavigationFocus(CalendarScreen);

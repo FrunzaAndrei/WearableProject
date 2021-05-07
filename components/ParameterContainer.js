@@ -12,9 +12,11 @@ const ParameterContainer = ({
   valueParametru2,
   iconECG,
   onPress,
+  disabled = false,
 }) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       activeOpacity={0.8}
       onPress={onPress}
       style={styles.container}>
