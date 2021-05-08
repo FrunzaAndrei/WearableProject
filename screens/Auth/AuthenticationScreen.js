@@ -18,10 +18,14 @@ import Loading from '../utils/Loading';
 const logo = require('../../assets/icons/logo.png');
 
 const AuthenticationScreen = ({navigation}) => {
-  const {cnpState, parolaState} = useSelector(state => ({
-    cnpState: state.data.userLogin?.cnp,
-    parolaState: state.data.userLogin?.password,
-  }));
+  const {cnpState, parolaState, dateInregistrare, doneInreg} = useSelector(
+    state => ({
+      cnpState: state.data.userLogin?.cnp,
+      parolaState: state.data.userLogin?.password,
+      dateInregistrare: state.data.dateInregistrare,
+      doneInreg: state.data.doneInreg,
+    }),
+  );
   const dispatch = useDispatch();
   const [cnp, setCnp] = useState('');
   const [parola, setParola] = useState('');
@@ -30,6 +34,13 @@ const AuthenticationScreen = ({navigation}) => {
   const parolRef = useRef();
 
   useEffect(() => {
+    if (doneInreg) {
+      if (cnp == dateInregistrare?.cnp && parola == dateInregistrare?.parola) {
+        navigation.navigate('Home');
+      }
+      setLoading(false);
+      return;
+    }
     if (cnpState && parolaState) {
       navigation.navigate('Home');
     }
