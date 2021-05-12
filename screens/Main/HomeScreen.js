@@ -21,9 +21,13 @@ const heartIcon = require('../../assets/icons/heart.png');
 const indicatorsIcon = require('../../assets/icons/indicators.png');
 const ecgIcon = require('../../assets/icons/puls.png');
 const ecgImage = require('../../assets/icons/ekg.png');
+const playImage = require('../../assets/icons/playIcon.png');
 
 const HomeScreen = () => {
   const [displayParametri, setDisplayParametri] = useState(false);
+  const [startPlimbare, setStartPlimbare] = useState(false);
+  const [startAlergare, setStartAlergare] = useState(false);
+  const [startCiclism, setStartCiclism] = useState(false);
   const [date, setDate] = useState(moment().format('LLLL'));
   const timeInterval = setInterval(
     () => setDate(moment().format('LLLL')),
@@ -31,6 +35,7 @@ const HomeScreen = () => {
   );
 
   useEffect(() => {
+    console.log(moment().format());
     return () => clearInterval(timeInterval);
   }, []);
 
@@ -58,28 +63,28 @@ const HomeScreen = () => {
               <Text style={styles.titleExercitii}> Exercitii </Text>
               <SportsContainer
                 title="Plimbare"
-                timeRunning={30}
                 time={30}
-                iconRun={conometruIcon}
+                iconRun={startPlimbare ? conometruIcon : playImage}
                 iconSport={walkIcon}
-                onPress={() => {}}
+                onPress={() => setStartPlimbare(!startPlimbare)}
+                startTimer={startPlimbare}
               />
               <SportsContainer
                 title="Alergare"
-                timeRunning={30}
                 time={30}
-                iconRun={conometruIcon}
+                iconRun={startAlergare ? conometruIcon : playImage}
                 iconSport={runIcon}
-                onPress={() => {}}
+                onPress={() => setStartAlergare(!startAlergare)}
+                startTimer={startAlergare}
               />
               <SportsContainer
                 title="Ciclism"
-                timeRunning={30}
                 time={30}
                 styleIconSport={styles.iconBicycle}
-                iconRun={conometruIcon}
+                iconRun={startCiclism ? conometruIcon : playImage}
                 iconSport={bicycleIcon}
-                onPress={() => {}}
+                onPress={() => setStartCiclism(!startCiclism)}
+                startTimer={startCiclism}
               />
               <View style={styles.containerParametri}>
                 <Text style={styles.titleParametri}>Parametri biologici</Text>

@@ -1,4 +1,5 @@
 import {
+  COUNT_SAVE,
   INREGISTRARE_USER,
   LOGIN_USER,
   RESET_ERROR,
@@ -11,6 +12,7 @@ const initialState = {
   dateInregistrare: {},
   errorMessage: null,
   doneInreg: false,
+  counterActivites: [],
 };
 
 const logAction = (action, state, payload) => {
@@ -47,6 +49,12 @@ export const data = createReducer(initialState, {
     return {
       ...state,
       errorMessage: null,
+    };
+  },
+  [COUNT_SAVE](state, action) {
+    return {
+      ...state,
+      counterActivites: [...state.counterActivites, action.payload],
     };
   },
 });

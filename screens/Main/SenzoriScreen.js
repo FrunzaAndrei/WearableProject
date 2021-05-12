@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import colors from '../../colors';
@@ -12,6 +13,10 @@ import SenzorEcg from '../Senzori/SenzorEcg';
 import SenzorPuls from '../Senzori/SenzorPuls';
 
 const SenzoriScreen = () => {
+  const [showEcg, setShowEcg] = useState(false);
+
+  const handleShow = () => setShowEcg(!showEcg);
+
   return (
     <>
       <StatusBar
@@ -31,8 +36,34 @@ const SenzoriScreen = () => {
           <View style={styles.container}>
             <Text style={styles.title}>Parametrii biologici</Text>
           </View>
-          <SenzorPuls />
-          <SenzorEcg />
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                !showEcg && {borderBottomColor: colors.redLine},
+              ]}
+              activeOpacity={0.8}
+              onPress={handleShow}>
+              <Text
+                style={[styles.buttonText, !showEcg && {color: colors.white}]}>
+                Senzor Puls
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                showEcg && {borderBottomColor: colors.redLine},
+              ]}
+              activeOpacity={0.8}
+              onPress={handleShow}>
+              <Text
+                style={[styles.buttonText, showEcg && {color: colors.white}]}>
+                Senzor ECG
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {!showEcg && <SenzorPuls />}
+          {showEcg && <SenzorEcg />}
         </ScrollView>
       </KeyboardAvoidingView>
     </>
@@ -53,5 +84,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  containerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.backgroundTabBar,
+    borderRadius: 5,
+  },
+  button: {
+    flex: 1,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.backgroundTabBar,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.black,
   },
 });

@@ -1,4 +1,5 @@
 import {
+  COUNT_SAVE,
   INREGISTRARE_USER,
   LOGIN_USER,
   RESET_ERROR,
@@ -35,6 +36,15 @@ export function resetErrorMessage() {
   return dispatch => {
     dispatch({
       type: RESET_ERROR,
+    });
+  };
+}
+
+export function saveCounter(counter) {
+  return dispatch => {
+    dispatch({
+      type: COUNT_SAVE,
+      payload: counter,
     });
   };
 }

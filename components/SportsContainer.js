@@ -1,18 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../colors';
 import Loading from '../screens/utils/Loading';
+import CountDown from 'react-native-countdown-component';
+import {useDispatch} from 'react-redux';
+import {saveCounter} from '../redux/action';
+
+const checkMarkIcon = require('../assets/icons/checkMark.png');
+const moment = require('moment');
 
 const SportsContainer = ({
   iconSport,
   iconRun,
-  timeRunning,
+  startTimer = false,
   time,
   title,
   isLoading = false,
   styleIconSport,
   onPress,
 }) => {
+  const [finish, setFinish] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleOnFinish = () => {
+    setFinish(true);
+    dispatch(
+      saveCounter({
+        date: moment().format('L'),
+        finalizat: finish,
+        tipActivitate: title,
+      }),
+    );
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -23,12 +43,29 @@ const SportsContainer = ({
       )}
       <View>
         {title && <Text style={styles.text}>{title}</Text>}
-        <Text style={styles.text}>{`${timeRunning} | ${time} min`}</Text>
+        <View style={styles.containerStartedCounter}>
+          <Text style={styles.textStartedCounter}>{`${time} min | `}</Text>
+          <CountDown
+            // until={60 * time}
+            until={time}
+            timeToShow={['M', 'S']}
+            timeLabels={{m: null, s: null}}
+            onFinish={handleOnFinish}
+            size={16}
+            running={startTimer}
+            style={styles.containerCountDown}
+            separatorStyle={{color: 'white'}}
+            showSeparator
+          />
+        </View>
       </View>
       <View style={styles.containerIcon}>
         <Loading isLoading={isLoading} />
         {iconRun && !isLoading && (
-          <Image source={iconRun} style={styles.iconRun} />
+          <Image
+            source={finish ? checkMarkIcon : iconRun}
+            style={styles.iconRun}
+          />
         )}
       </View>
     </TouchableOpacity>
@@ -70,6 +107,25 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontSize: 16,
+    fontWeight: 'bold',
+  },
+  styleDigit: {
+    backgroundColor: colors.background,
+    padding: 3,
+  },
+  containerCountDown: {
+    padding: 0,
+    margin: 0,
+  },
+  containerStartedCounter: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  textStartedCounter: {
+    paddingRight: 16,
+    color: colors.white,
+    fontSize: 16,
+    marginTop: 1,
     fontWeight: 'bold',
   },
 });
