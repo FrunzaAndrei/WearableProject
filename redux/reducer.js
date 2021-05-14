@@ -52,6 +52,7 @@ export const data = createReducer(initialState, {
     };
   },
   [COUNT_SAVE](state, action) {
+    logAction(COUNT_SAVE, state, action.payload);
     return {
       ...state,
       counterActivites: [...state.counterActivites, action.payload],

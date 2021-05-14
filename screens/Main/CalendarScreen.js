@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -8,21 +8,63 @@ import {
   View,
 } from 'react-native';
 import {withNavigationFocus} from 'react-navigation';
+import {useSelector} from 'react-redux';
 import colors from '../../colors';
 import MyCalendar from '../../components/Calendar';
-import SportsContainer from '../../components/SportsContainer';
+import SportContainerCalendar from '../../components/SportContainerCalendar';
 
 const moment = require('moment');
 const conometruIcon = require('../../assets/icons/stopwatch.png');
+const checkMark = require('../../assets/icons/checkMark.png');
 const walkIcon = require('../../assets/icons/walk.png');
 const runIcon = require('../../assets/icons/run.png');
 const bicycleIcon = require('../../assets/icons/bicycle.png');
+const textCompletActivitate = 'Activitatea este completa';
+const textIncompletActivitate = 'Activitate nu este inca completa';
 
 const CalendarScreen = ({isFocused}) => {
+  const {counterActivities} = useSelector(state => ({
+    counterActivities: state.data.counterActivites,
+  }));
+
+  const [plimbareCompleta, setPlimbareCompleted] = useState(false);
+  const [alergareCompleta, setAlergareCompleted] = useState(false);
+  const [ciclismCompleta, setCiclismCompleted] = useState(false);
   const [date, chooseDate] = useState(null);
   const handleOnSelectDay = date => {
     chooseDate(date);
+    console.log(counterActivities);
+    reinitializare();
+    const formatDate = moment(date).format('L');
+    const dataArray = counterActivities.filter(item => item.date == formatDate);
+    dataArray.forEach(item => {
+      if (item.tipActivitate === 'Alergare') {
+        setAlergareCompleted(true);
+      }
+      if (item.tipActivitate === 'Plimbare') {
+        setPlimbareCompleted(true);
+      }
+      if (item.tipActivitate === 'Ciclism') {
+        setCiclismCompleted(true);
+      }
+    });
   };
+
+  const reinitializare = () => {
+    setPlimbareCompleted(false);
+    setCiclismCompleted(false);
+    setAlergareCompleted(false);
+  };
+
+  const textPlimbare = plimbareCompleta
+    ? textCompletActivitate
+    : textIncompletActivitate;
+  const textAlergare = plimbareCompleta
+    ? textCompletActivitate
+    : textIncompletActivitate;
+  const textCiclism = plimbareCompleta
+    ? textCompletActivitate
+    : textIncompletActivitate;
 
   return (
     <>
@@ -51,30 +93,42 @@ const CalendarScreen = ({isFocused}) => {
                 'L',
               )}`}</Text>
               <View style={styles.sportContainer}>
-                <SportsContainer
+                <SportContainerCalendar
                   title="Plimbare"
                   timeRunning={30}
                   time={30}
-                  iconRun={conometruIcon}
+                  iconRun={plimbareCompleta ? checkMark : conometruIcon}
                   iconSport={walkIcon}
-                  onPress={() => {}}
+                  status={
+                    plimbareCompleta
+                      ? textCompletActivitate
+                      : textIncompletActivitate
+                  }
                 />
-                <SportsContainer
+                <SportContainerCalendar
                   title="Alergare"
                   timeRunning={30}
                   time={30}
-                  iconRun={conometruIcon}
+                  iconRun={alergareCompleta ? checkMark : conometruIcon}
                   iconSport={runIcon}
-                  onPress={() => {}}
+                  status={
+                    alergareCompleta
+                      ? textCompletActivitate
+                      : textIncompletActivitate
+                  }
                 />
-                <SportsContainer
+                <SportContainerCalendar
                   title="Ciclism"
                   timeRunning={30}
                   time={30}
                   styleIconSport={styles.iconBicycle}
-                  iconRun={conometruIcon}
+                  iconRun={ciclismCompleta ? checkMark : conometruIcon}
                   iconSport={bicycleIcon}
-                  onPress={() => {}}
+                  status={
+                    ciclismCompleta
+                      ? textCompletActivitate
+                      : textIncompletActivitate
+                  }
                 />
               </View>
             </View>

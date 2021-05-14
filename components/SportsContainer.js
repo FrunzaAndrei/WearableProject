@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../colors';
-import Loading from '../screens/utils/Loading';
 import CountDown from 'react-native-countdown-component';
 import {useDispatch} from 'react-redux';
 import {saveCounter} from '../redux/action';
@@ -24,10 +23,11 @@ const SportsContainer = ({
 
   const handleOnFinish = () => {
     setFinish(true);
+    const date = moment().format('L');
     dispatch(
       saveCounter({
-        date: moment().format('L'),
-        finalizat: finish,
+        date: date,
+        finalizat: true,
         tipActivitate: title,
       }),
     );
@@ -60,7 +60,6 @@ const SportsContainer = ({
         </View>
       </View>
       <View style={styles.containerIcon}>
-        <Loading isLoading={isLoading} />
         {iconRun && !isLoading && (
           <Image
             source={finish ? checkMarkIcon : iconRun}
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   textStartedCounter: {
-    paddingRight: 16,
     color: colors.white,
     fontSize: 16,
     marginTop: 1,
