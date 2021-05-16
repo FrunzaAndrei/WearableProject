@@ -19,7 +19,7 @@ const AuthScreen = () => {
       <StatusBar barStyle={'dark-content'} backgroundColor={colors.white} />
       <ScrollView style={styles.containerContent}>
         {/* <View style={styles.containerHeader}>
-          <Text>Wearable</Text>
+          <Text>Nemobit</Text>
         </View> */}
         <View style={styles.content}>
           {wasPressedBtn && <BluetoothModule />}
