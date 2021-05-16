@@ -18,10 +18,6 @@ const SenzoriScreen = ({isFocused}) => {
 
   const handleShow = () => setShowEcg(!showEcg);
 
-  console.log('=======');
-  console.log('readData:', showEcg);
-  console.log('screenFocused', isFocused);
-
   return (
     <>
       <StatusBar
