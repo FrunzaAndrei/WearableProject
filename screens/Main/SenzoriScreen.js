@@ -8,14 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {withNavigationFocus} from 'react-navigation';
 import colors from '../../colors';
 import SenzorEcg from '../Senzori/SenzorEcg';
 import SenzorPuls from '../Senzori/SenzorPuls';
 
-const SenzoriScreen = () => {
+const SenzoriScreen = ({isFocused}) => {
   const [showEcg, setShowEcg] = useState(false);
 
   const handleShow = () => setShowEcg(!showEcg);
+
+  console.log('=======');
+  console.log('readData:', showEcg);
+  console.log('screenFocused', isFocused);
 
   return (
     <>
@@ -62,7 +67,7 @@ const SenzoriScreen = () => {
               </Text>
             </TouchableOpacity>
           </View>
-          {!showEcg && <SenzorPuls />}
+          {!showEcg && <SenzorPuls screenFocused={isFocused} />}
           {showEcg && <SenzorEcg />}
         </ScrollView>
       </KeyboardAvoidingView>
@@ -70,7 +75,7 @@ const SenzoriScreen = () => {
   );
 };
 
-export default SenzoriScreen;
+export default withNavigationFocus(SenzoriScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import EkgGraph from '../../components/EkgGraph';
 import ParameterContainer from '../../components/ParameterContainer';
 import SectionText from '../../components/SectionText';

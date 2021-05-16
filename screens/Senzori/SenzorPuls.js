@@ -1,20 +1,46 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
 import ParameterContainer from '../../components/ParameterContainer';
 import SectionText from '../../components/SectionText';
 import strings from '../../mock/copies';
+import Senzori from '../../SenzoriAction';
 
 const heartIcon = require('../../assets/icons/heart.png');
 
-const SenzorPuls = () => {
+const SenzorPuls = ({screenFocused}) => {
+  let pulsInterval, saturatieInterval;
+  const [puls, setPuls] = useState(70);
+  const [satOxigen, setSatOxigen] = useState(99);
+
+  useEffect(() => {
+    if (screenFocused) {
+      pulsInterval = setInterval(() => {
+        const senzorPuls = Senzori.pulsReader();
+        setPuls(senzorPuls);
+      }, 10000);
+      saturatieInterval = setInterval(() => {
+        const senzorOxigen = Senzori.saturatieReader();
+        setSatOxigen(senzorOxigen);
+      }, 25000);
+    } else {
+      clearInterval(pulsInterval);
+      clearInterval(saturatieInterval);
+    }
+
+    return () => {
+      clearInterval(pulsInterval);
+      clearInterval(saturatieInterval);
+    };
+  }, [screenFocused]);
+
   return (
     <View style={styles.container}>
       <ParameterContainer
         iconParametru={heartIcon}
         parametru1="Puls"
         parametru2="Saturatie Oxigen"
-        valueParametru1="70BPM"
-        valueParametru2="90 %"
+        valueParametru1={`${puls} BPM`}
+        valueParametru2={`${satOxigen} %`}
         onPress={() => {}}
         disabled={true}
       />

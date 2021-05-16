@@ -11,6 +11,7 @@ import colors from '../../colors';
 import SportsContainer from '../../components/SportsContainer';
 import Button from '../../components/Button';
 import ParameterContainer from '../../components/ParameterContainer';
+import Senzori from '../../SenzoriAction';
 
 const moment = require('moment');
 const conometruIcon = require('../../assets/icons/stopwatch.png');
@@ -24,20 +25,40 @@ const ecgImage = require('../../assets/icons/ekg.png');
 const playImage = require('../../assets/icons/playIcon.png');
 
 const HomeScreen = () => {
+  let pulsInterval, saturatieInterval;
   const [displayParametri, setDisplayParametri] = useState(false);
   const [startPlimbare, setStartPlimbare] = useState(false);
   const [startAlergare, setStartAlergare] = useState(false);
   const [startCiclism, setStartCiclism] = useState(false);
+  const [puls, setPuls] = useState(70);
+  const [satOxigen, setSatOxigen] = useState(99);
   const [date, setDate] = useState(moment().format('LLLL'));
+
   const timeInterval = setInterval(
     () => setDate(moment().format('LLLL')),
     1000,
   );
 
   useEffect(() => {
-    console.log(moment().format());
     return () => clearInterval(timeInterval);
   }, []);
+
+  useEffect(() => {
+    if (displayParametri) {
+      pulsInterval = setInterval(() => {
+        const senzorPuls = Senzori.pulsReader();
+        setPuls(senzorPuls);
+      }, 10000);
+      saturatieInterval = setInterval(() => {
+        const senzorOxigen = Senzori.saturatieReader();
+        setSatOxigen(senzorOxigen);
+      }, 30000);
+    }
+    if (!displayParametri) {
+      clearInterval(pulsInterval);
+      clearInterval(saturatieInterval);
+    }
+  }, [displayParametri]);
 
   return (
     <>
@@ -94,8 +115,8 @@ const HomeScreen = () => {
                       iconParametru={heartIcon}
                       parametru1="Puls"
                       parametru2="Saturatie Oxigen"
-                      valueParametru1="70BPM"
-                      valueParametru2="90 %"
+                      valueParametru1={`${puls} BPM`}
+                      valueParametru2={`${satOxigen} %`}
                       onPress={() => {}}
                     />
                     <ParameterContainer
@@ -103,8 +124,8 @@ const HomeScreen = () => {
                       styleIconParametru={styles.indicatorsIcon}
                       parametru1="Temperatura"
                       parametru2="Umiditate"
-                      valueParametru1="36 C"
-                      valueParametru2="30 %"
+                      valueParametru1="24 C"
+                      valueParametru2="22 %"
                       onPress={() => {}}
                     />
                     <ParameterContainer
