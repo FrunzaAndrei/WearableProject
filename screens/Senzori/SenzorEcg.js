@@ -1,14 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import EkgGraph from '../../components/EkgGraph';
 import ParameterContainer from '../../components/ParameterContainer';
 import SectionText from '../../components/SectionText';
 import strings from '../../mock/copies';
+import Senzori from '../../SenzoriAction';
+import InitialEkg from '../../bluetooth/index';
 
 const ecgIcon = require('../../assets/icons/puls.png');
 const ecgImage = require('../../assets/icons/ekg.png');
 
 const SenzorEcg = () => {
+  let ekgInterval;
+  const [data, setData] = useState(InitialEkg.ekg);
+  useEffect(() => {
+    ekgInterval = setInterval(() => {
+      const ekg = Senzori.getEkg(data);
+      setData(ekg);
+    }, 800);
+    return () => {
+      clearInterval(ekgInterval);
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <ParameterContainer
@@ -29,7 +42,7 @@ const SenzorEcg = () => {
          ${strings.ecgExplanation3}
         `}
       />
-      <EkgGraph />
+      <EkgGraph dataEkg={data} />
     </View>
   );
 };

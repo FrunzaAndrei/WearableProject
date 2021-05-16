@@ -12,7 +12,11 @@ const initialState = {
   dateInregistrare: {},
   errorMessage: null,
   doneInreg: false,
-  counterActivites: [],
+  counterActivites: [
+    {date: '05/15/2021', finalizat: true, tipActivitate: 'Plimbare'},
+    {date: '05/14/2021', finalizat: true, tipActivitate: 'Ciclism'},
+    {date: '05/13/2021', finalizat: true, tipActivitate: 'Alergare'},
+  ],
 };
 
 const logAction = (action, state, payload) => {

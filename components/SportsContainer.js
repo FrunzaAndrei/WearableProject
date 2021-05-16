@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../colors';
 import CountDown from 'react-native-countdown-component';
 import {useDispatch} from 'react-redux';
-import {saveCounter} from '../redux/action';
+import {saveCounter, showErrorMessage} from '../redux/action';
 
 const checkMarkIcon = require('../assets/icons/checkMark.png');
 const moment = require('moment');
@@ -17,6 +17,7 @@ const SportsContainer = ({
   isLoading = false,
   styleIconSport,
   onPress,
+  navigation,
 }) => {
   const [finish, setFinish] = useState(false);
   const dispatch = useDispatch();
@@ -31,6 +32,8 @@ const SportsContainer = ({
         tipActivitate: title,
       }),
     );
+    dispatch(showErrorMessage(`Ati finalizat ${title}`));
+    navigation.navigate('AlertScreen');
   };
 
   return (
@@ -53,6 +56,8 @@ const SportsContainer = ({
             onFinish={handleOnFinish}
             size={16}
             running={startTimer}
+            digitStyle={{color: colors.white}}
+            digitTxtStyle={{color: colors.white}}
             style={styles.containerCountDown}
             separatorStyle={{color: 'white'}}
             showSeparator

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, View, Text} from 'react-native';
 import {BleManager} from 'react-native-ble-plx';
-const puls = [70, 78, 80, 85, 90, 78, 80, 85, 92, 70];
-const saturatieOX = [99, 98, 97, 96, 98, 99];
+import {puls, saturatieOX, ekg, ekg1} from '../mock/values';
 
 class SensorsComponent extends Component {
   constructor() {
@@ -134,4 +133,4 @@ class SensorsComponent extends Component {
   }
 }
 
-export default {puls, saturatieOX};
+export default {puls, saturatieOX, ekg, ekg1};

@@ -24,7 +24,7 @@ const ecgIcon = require('../../assets/icons/puls.png');
 const ecgImage = require('../../assets/icons/ekg.png');
 const playImage = require('../../assets/icons/playIcon.png');
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   let pulsInterval, saturatieInterval;
   const [displayParametri, setDisplayParametri] = useState(false);
   const [startPlimbare, setStartPlimbare] = useState(false);
@@ -48,11 +48,11 @@ const HomeScreen = () => {
       pulsInterval = setInterval(() => {
         const senzorPuls = Senzori.pulsReader();
         setPuls(senzorPuls);
-      }, 10000);
+      }, 5000);
       saturatieInterval = setInterval(() => {
         const senzorOxigen = Senzori.saturatieReader();
         setSatOxigen(senzorOxigen);
-      }, 30000);
+      }, 10000);
     }
     if (!displayParametri) {
       clearInterval(pulsInterval);
@@ -89,6 +89,7 @@ const HomeScreen = () => {
                 iconSport={walkIcon}
                 onPress={() => setStartPlimbare(!startPlimbare)}
                 startTimer={startPlimbare}
+                navigation={navigation}
               />
               <SportsContainer
                 title="Alergare"
@@ -97,6 +98,7 @@ const HomeScreen = () => {
                 iconSport={runIcon}
                 onPress={() => setStartAlergare(!startAlergare)}
                 startTimer={startAlergare}
+                navigation={navigation}
               />
               <SportsContainer
                 title="Ciclism"
@@ -106,6 +108,7 @@ const HomeScreen = () => {
                 iconSport={bicycleIcon}
                 onPress={() => setStartCiclism(!startCiclism)}
                 startTimer={startCiclism}
+                navigation={navigation}
               />
               <View style={styles.containerParametri}>
                 <Text style={styles.titleParametri}>Parametri biologici</Text>
@@ -124,8 +127,8 @@ const HomeScreen = () => {
                       styleIconParametru={styles.indicatorsIcon}
                       parametru1="Temperatura"
                       parametru2="Umiditate"
-                      valueParametru1="24 C"
-                      valueParametru2="22 %"
+                      valueParametru1="36 C"
+                      valueParametru2="30 %"
                       onPress={() => {}}
                     />
                     <ParameterContainer

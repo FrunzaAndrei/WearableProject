@@ -17,11 +17,11 @@ const SenzorPuls = ({screenFocused}) => {
       pulsInterval = setInterval(() => {
         const senzorPuls = Senzori.pulsReader();
         setPuls(senzorPuls);
-      }, 10000);
+      }, 5000);
       saturatieInterval = setInterval(() => {
         const senzorOxigen = Senzori.saturatieReader();
         setSatOxigen(senzorOxigen);
-      }, 25000);
+      }, 10000);
     } else {
       clearInterval(pulsInterval);
       clearInterval(saturatieInterval);
