@@ -49,8 +49,7 @@ const SportsContainer = ({
         <View style={styles.containerStartedCounter}>
           <Text style={styles.textStartedCounter}>{`${time} min | `}</Text>
           <CountDown
-            // until={60 * time}
-            until={time}
+            until={60 * time}
             timeToShow={['M', 'S']}
             timeLabels={{m: null, s: null}}
             onFinish={handleOnFinish}
